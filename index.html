@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ============ EDIT: page title and search description ============ -->
+<title>Jayani Duggirala</title>
+<meta name="description" content="Computer science student at UC San Diego. Deep learning for audio, computer vision, and full stack systems.">
+<meta name="author" content="Jayani Duggirala">
+<meta name="theme-color" content="#fbfafd">
+
+<!-- Two families. Instrument Serif for headings, Inter for everything else.
+     Delete these three lines and the site falls back to system fonts. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css">
+
+<!-- Sets the saved theme before the page paints, so there is no flash. -->
+<script>
+(function(){try{
+  var s=localStorage.getItem('theme');
+  var d=window.matchMedia('(prefers-color-scheme:dark)').matches;
+  document.documentElement.setAttribute('data-theme', s || (d?'dark':'light'));
+}catch(e){}})();
+</script>
+</head>
+<body>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ============================================================
+     HEADER
+     EDIT: nav links match the section ids further down.
+     ============================================================ -->
+<header class="site-header" id="header">
+  <div class="wrap header-inner">
+    <a class="wordmark" href="#top">Jayani Duggirala</a>
+
+    <!-- EDIT: each href points at a section id below.
+         Add or remove a link and nothing else needs changing. -->
+    <nav class="nav" id="nav" aria-label="Sections">
+      <a href="#projects">Projects</a>
+      <a href="#research">Research</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#awards">Awards</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="header-tools">
+      <button class="theme-btn" id="themeToggle" type="button" aria-label="Switch to dark mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2.5v2.4M12 19.1v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20 14.5A8.2 8.2 0 0 1 9.5 4a8.3 8.3 0 1 0 10.5 10.5z"/>
+        </svg>
+      </button>
+
+      <!-- shown on narrow screens only -->
+      <button class="menu-btn" id="menuToggle" type="button"
+              aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================================================
+       INTRO
+       Photo on the left, name and details on the right.
+       ============================================================ -->
+  <section class="intro" id="top">
+    <div class="wrap intro-grid">
+
+      <!-- ---------- PHOTO. Put your image file in the src below. ---------- -->
+      <figure class="photo" id="photo">
+        <div class="photo-frame">
+          <div class="photo-inner">
+            <!-- EDIT: e.g. src="photo.jpg" -->
+            <img src="photo.jpg" alt="Jayani Duggirala smiling on the Bonneville Salt Flats" id="photoImg"
+                 loading="lazy">
+            <span class="photo-empty">photo</span>
+          </div>
+          <!-- EDIT: caption, or delete this line -->
+          <figcaption>UC San Diego</figcaption>
+        </div>
+      </figure>
+
+      <!-- ---------- NAME, ROLE, INTRO, FACTS ---------- -->
+      <div class="intro-body">
+        <!-- EDIT: name and one line role -->
+        <h1>Jayani Duggirala</h1>
+        <p class="role">
+          Computer science at UC San Diego.
+          <span class="tag">Open to Summer 2027 internships</span>
+        </p>
+
+        <!-- EDIT: two or three sentences. Keep it factual. -->
+        <p class="intro-text">
+          I work on deep learning for audio, currently automatic music transcription with the CSE
+          Society. Before that I built full stack tools, and I still spend most of my time between
+          machine learning and systems that people actually use.
+        </p>
+
+        <!-- EDIT: quick facts. Add or remove rows freely. -->
+        <dl class="facts">
+          <div>
+            <dt>Studying</dt>
+            <dd>B.S. Computer Science, class of 2029</dd>
+          </div>
+          <div>
+            <dt>Currently</dt>
+            <dd>AI Events Lead, ACM AI at UCSD</dd>
+          </div>
+          <div>
+            <dt>Research</dt>
+            <dd>Automatic music transcription, ORCA</dd>
+          </div>
+          <div>
+            <dt>Interests</dt>
+            <dd>Deep learning, computer vision, audio ML, fintech</dd>
+          </div>
+        </dl>
+
+        <!-- EDIT: links. The email button is filled in by script.js. -->
+        <p class="links">
+          <a href="https://github.com/JayaniSND">GitHub</a>
+          <a href="https://www.linkedin.com/in/jayani-duggirala-9b2218241">LinkedIn</a>
+          <a href="Resume26.pdf" target="_blank" rel="noopener">Resume</a>
+          <button class="linklike" type="button" data-email>Email</button>
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       STATEMENT
+       One wide line, with the network animation beside it.
+       EDIT the sentence freely. To remove the animation, delete
+       the <canvas> line; the script skips it if it is missing.
+       ============================================================ -->
+  <section class="statement">
+    <div class="wrap statement-grid">
+      <p>
+        Turning sound into something a machine can read, and something a musician
+        would <em>recognize</em>.
+      </p>
+      <canvas id="network" aria-hidden="true"></canvas>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PROJECTS
+       EDIT: copy one <a class="project"> block per project.
+       ============================================================ -->
+  <section class="section" id="projects">
+    <div class="wrap">
+      <p class="label">Selected work</p>
+      <h2>Projects</h2>
+
+      <div class="projects">
+
+        <a class="project" href="https://github.com/JayaniSND">
+          <p class="year">2026</p>
+          <h3>Audiate</h3>
+          <p>
+            Transcribes hummed melodies and symphonic audio into animated MIDI. Maps vocal input to
+            the nearest semitone and derives bow stroke direction from rhythm data. Haptic feedback
+            syncs to the note timeline for deaf and hard of hearing musicians.
+          </p>
+          <p class="stack">Python, CREPE, librosa, Swift. Third place, SDx Hackathon.</p>
+        </a>
+
+        <a class="project" href="#research">
+          <p class="year">2025 to 2026</p>
+          <h3>AMT pipeline</h3>
+          <p>
+            Transcription pipeline for ORCA: source separation, per instrument MR-MT3 embedding
+            extraction, music theory constrained decoding, then MIDI output. Constrains generation
+            with domain knowledge instead of cleaning up model output afterward.
+          </p>
+          <p class="stack">Deep learning, MR-MT3, MIDI.</p>
+        </a>
+
+        <a class="project" href="https://github.com/JayaniSND">
+          <p class="year">2025</p>
+          <h3>Matchstick</h3>
+          <p>
+            Full stack web app that matches students for study sessions by class schedule and
+            location. Built the dashboard and match pages, including the filtering logic that pairs
+            peers by enrolled course. Led ideation across a team of five.
+          </p>
+          <p class="stack">JavaScript, full stack. First place, WIC Fall Project Teams.</p>
+        </a>
+
+        <a class="project" href="https://github.com/JayaniSND">
+          <p class="year">2026</p>
+          <h3>Climate prediction</h3>
+          <p>
+            Entry for the NSF HDR machine learning challenge at the NSF HDR and UCSD SMASH
+            Hackathon, working the ecological data track.
+          </p>
+          <p class="stack">Python, scikit-learn.</p>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       RESEARCH
+       ============================================================ -->
+  <section class="section narrow" id="research">
+    <div class="wrap">
+      <p class="label">Current focus</p>
+      <h2>Research</h2>
+
+      <p class="lead">
+        I work on automatic music transcription with ORCA, the CSE Society's AI assisted music
+        recognition tool. The problem is turning real audio into notation a musician would
+        recognize.
+      </p>
+      <p>
+        We started with the music itself: timbre, polyphonic versus monophonic tracking, and how
+        hearing resolves overlapping sound. That became a literature review of existing
+        architectures, including Onsets and Frames, MR-MT3, and generative source separation. From
+        there I moved to building with CREPE for pitch detection and librosa for onset detection,
+        then tested source separation on multi track audio. The result is the pipeline above.
+      </p>
+
+      <p class="label spaced">Publication</p>
+      <ul class="papers">
+        <!-- EDIT: one <li> per paper -->
+        <li>
+          <a href="https://github.com/JayaniSND">Automatic Music Transcription: Literature Review</a>
+          <span class="meta">Duggirala, J., Hiremath, S., Goyal, U. CSES ORCA, 2025.</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       EXPERIENCE
+       EDIT: one <li> per role, newest first.
+       ============================================================ -->
+  <section class="section narrow" id="experience">
+    <div class="wrap">
+      <p class="label">Roles</p>
+      <h2>Experience</h2>
+
+      <ul class="entries">
+        <li>
+          <div class="when">2026, now</div>
+          <div class="what">
+            <h3>AI Events Lead</h3>
+            <p class="org">ACM AI at UC San Diego</p>
+            <p>
+              Design the AI School workshop curriculum covering classification, logistic regression,
+              neural network fundamentals, and evaluation. Built the teaching materials in
+              scikit-learn and Keras. Run community hours on environment setup and Manim.
+            </p>
+          </div>
+        </li>
+
+        <li>
+          <div class="when">2025, 2026</div>
+          <div class="what">
+            <h3>Researcher and Developer, ORCA</h3>
+            <p class="org">CSE Society at UC San Diego</p>
+            <p>
+              Reviewed literature on self supervised music representation learning, transcription
+              architectures, and generative source separation. Co-authored a literature review
+              comparing state of the art models, and proposed the pipeline the team adopted.
+            </p>
+          </div>
+        </li>
+
+        <li>
+          <div class="when">2025</div>
+          <div class="what">
+            <h3>Full Stack Developer, Matchstick</h3>
+            <p class="org">Women in Computing at UC San Diego</p>
+            <p>
+              First place in the Fall Project Teams education track. Built the dashboard and match
+              pages and led development across a team of five.
+            </p>
+          </div>
+        </li>
+      </ul>
+
+      <p class="label spaced">Education</p>
+      <ul class="entries">
+        <li>
+          <div class="when">2025 to 2029</div>
+          <div class="what">
+            <h3>B.S. Computer Science</h3>
+            <p class="org">University of California, San Diego</p>
+            <p>
+              Computer Vision, Data Structures and Algorithms, Linear Algebra, Probability and
+              Statistics, Multivariable Calculus, Object Oriented Programming.
+            </p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SKILLS
+       EDIT: rename a group or add another <div class="skill-row">.
+       ============================================================ -->
+  <section class="section narrow" id="skills">
+    <div class="wrap">
+      <p class="label">Tools</p>
+      <h2>Skills</h2>
+
+      <div class="skill-row">
+        <h3>Languages</h3>
+        <p>Python, Java, Swift, C, JavaScript, HTML and CSS</p>
+      </div>
+      <div class="skill-row">
+        <h3>Machine learning</h3>
+        <p>PyTorch, TensorFlow, Keras, scikit-learn, Hugging Face, pandas, NumPy, matplotlib</p>
+      </div>
+      <div class="skill-row">
+        <h3>Audio and vision</h3>
+        <p>CREPE, librosa, MR-MT3, source separation, computer vision</p>
+      </div>
+      <div class="skill-row">
+        <h3>Developer tools</h3>
+        <p>Git, Jupyter, Google Colab, Kaggle, Docker, Kubernetes, Figma, Manim</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       AWARDS
+       EDIT: one <li> per award.
+       ============================================================ -->
+  <section class="section narrow" id="awards">
+    <div class="wrap">
+      <p class="label">Recognition</p>
+      <h2>Awards</h2>
+
+      <ul class="entries compact">
+        <li>
+          <div class="when">2026</div>
+          <div class="what"><p>First place, DataHacks at UCSD, economics track, 400 plus participants</p></div>
+        </li>
+        <li>
+          <div class="when">2026</div>
+          <div class="what"><p>First place, UCSD programming competition for underclassmen, hosted by Women in Computing</p></div>
+        </li>
+        <li>
+          <div class="when">2026</div>
+          <div class="what"><p>Third place, SDx UCSD Hackathon, for Audiate</p></div>
+        </li>
+        <li>
+          <div class="when">2025</div>
+          <div class="what"><p>First place, WIC Fall Project Teams, for Matchstick</p></div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT
+       ============================================================ -->
+  <section class="section closing" id="contact">
+    <div class="wrap closing-grid">
+      <div class="closing-content">
+        <h2 class="big">Looking for Summer 2027 software engineering internships.</h2>
+        <p class="lead">
+          Happy to talk about audio models, computer vision, or machine learning applied to music.
+        </p>
+        <p class="links">
+          <a href="https://www.linkedin.com/in/jayani-duggirala-9b2218241">LinkedIn</a>
+          <a href="https://github.com/JayaniSND">GitHub</a>
+          <a href="Resume26.pdf" target="_blank" rel="noopener">Resume</a>
+          <button class="linklike" type="button" data-email>Email</button>
+        </p>
+      </div>
+      <!-- EDIT: decorative cutout, hidden under 700px. alt is empty since
+           the polaroid photo above already names the subject. -->
+      <img class="closing-cutout" src="cutout.png" alt="" loading="lazy" width="285" height="840">
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <p>Jayani Duggirala</p>
+    <p>Last updated <span id="year">2026</span></p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

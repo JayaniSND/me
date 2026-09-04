@@ -1,0 +1,501 @@
+/* ============================================================
+   1. COLORS AND TYPE
+   Change these values and the whole site follows.
+   Lavender and plum on a warm off white. The two values that
+   move the most colour at once are --accent and --accent-line.
+   ============================================================ */
+:root,
+[data-theme="light"]{
+  --bg:      #fbfafd;
+  --bg-soft: #f4f0f9;
+  --card:    #ffffff;
+
+  --ink:   #221b2c;   /* headings */
+  --text:  #564c63;   /* body */
+  --muted: #8a8098;   /* labels, dates */
+
+  --line:      #e7e1ef;
+  --line-soft: #f0ecf5;
+
+  --accent:      #6d5385;   /* links, organisation names */
+  --accent-soft: #f2ecf9;   /* tag and closing panel */
+  --accent-line: #b49bd0;   /* underlines */
+  --accent-warm: #e2a7cf;   /* second colour, used sparingly */
+
+  --photo-bg: #e6ddf0;
+}
+
+[data-theme="dark"]{
+  --bg:      #131019;
+  --bg-soft: #1c1726;
+  --card:    #191522;
+
+  --ink:   #f3eef8;
+  --text:  #b2a7c0;
+  --muted: #82778f;
+
+  --line:      #2c2539;
+  --line-soft: #241e2f;
+
+  --accent:      #c6a5df;
+  --accent-soft: #211a2c;
+  --accent-line: #9878b8;
+  --accent-warm: #d78fc0;
+
+  --photo-bg: #2a2237;
+}
+
+:root{
+  /* Instrument Serif for headings, Inter for text. Both load from
+     Google Fonts in index.html. Remove those links and these
+     stacks fall back to whatever the visitor's system has. */
+  --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --sans:  "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono:  ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  --gap: 116px;      /* space between sections */
+  --measure: 66ch;   /* max line length for body text */
+}
+
+/* ============================================================
+   2. BASE
+   ============================================================ */
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; }
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--sans);
+  font-size:17px;
+  line-height:1.7;
+  letter-spacing:-0.003em;
+  -webkit-font-smoothing:antialiased;
+}
+
+h1,h2,h3{ color:var(--ink); margin:0; }
+h1,h2{
+  font-family:var(--serif); font-weight:400;
+  letter-spacing:-0.005em;
+}
+h1{ font-size:clamp(42px,5.2vw,60px); line-height:1.06; }
+h2{ font-size:clamp(30px,3.6vw,40px); line-height:1.14; margin-bottom:34px; }
+h3{ font-family:var(--sans); font-size:17px; font-weight:600; letter-spacing:-0.01em; }
+
+p{ margin:0 0 16px; max-width:var(--measure); }
+p:last-child{ margin-bottom:0; }
+
+a{ color:var(--accent); text-decoration:none; }
+
+.wrap{ width:min(1000px,88vw); margin-inline:auto; }
+.narrow .wrap{ width:min(720px,88vw); }
+
+/* small label that sits above a heading */
+.label{
+  font-family:var(--mono); font-size:11.5px; letter-spacing:0.08em;
+  text-transform:uppercase; color:var(--accent);
+  margin:0 0 10px;
+}
+.label.spaced{ margin-top:56px; }
+
+.lead{ font-size:19px; color:var(--ink); line-height:1.6; font-weight:400; }
+
+.skip{
+  position:absolute; left:-9999px; top:0; z-index:99;
+  background:var(--accent); color:#fff; padding:10px 16px;
+}
+.skip:focus{ left:0; }
+
+:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; border-radius:3px; }
+
+.progress{
+  position:fixed; top:0; left:0; height:2px; width:0; z-index:30;
+  background:linear-gradient(90deg, var(--accent-line), var(--accent-warm));
+}
+
+/* ============================================================
+   3. HEADER
+   ============================================================ */
+.site-header{
+  position:sticky; top:0; z-index:20;
+  background:color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line-soft);
+  transition:border-color .2s, box-shadow .2s;
+}
+.site-header.stuck{
+  border-bottom-color:var(--line);
+  box-shadow:0 1px 12px rgba(0,0,0,.04);
+}
+.header-inner{ display:flex; align-items:center; gap:20px; padding:14px 0; }
+
+.wordmark{ font-family:var(--sans); font-size:15px; font-weight:500; color:var(--ink); letter-spacing:-0.01em; }
+
+.nav{ margin-left:auto; display:flex; gap:4px; }
+.nav a{
+  position:relative;
+  font-size:14.5px; color:var(--muted);
+  padding:6px 11px; border-radius:999px;
+  transition:color .2s, background .2s;
+}
+.nav a:hover{ color:var(--ink); background:var(--accent-soft); }
+
+/* the section currently on screen */
+.nav a.current{ color:var(--ink); }
+.nav a.current::after{
+  content:""; position:absolute; left:11px; right:11px; bottom:1px;
+  height:1.5px; background:var(--accent-line); border-radius:2px;
+}
+
+.header-tools{ display:flex; align-items:center; gap:8px; flex:none; }
+
+.menu-btn{
+  display:none;
+  width:30px; height:30px;
+  border:1px solid var(--line); border-radius:50%;
+  background:transparent; cursor:pointer; padding:0;
+  flex-direction:column; align-items:center; justify-content:center; gap:4px;
+  transition:border-color .2s;
+}
+.menu-btn:hover{ border-color:var(--accent-line); }
+.menu-btn span{
+  display:block; width:12px; height:1.5px; background:var(--muted);
+  border-radius:2px; transition:transform .2s, opacity .2s;
+}
+.menu-btn[aria-expanded="true"] span:first-child{ transform:translateY(2.75px) rotate(45deg); }
+.menu-btn[aria-expanded="true"] span:last-child{ transform:translateY(-2.75px) rotate(-45deg); }
+
+.theme-btn{
+  width:30px; height:30px; flex:none;
+  display:grid; place-items:center;
+  border:1px solid var(--line); border-radius:50%;
+  background:transparent; color:var(--muted);
+  cursor:pointer; padding:0;
+  transition:border-color .2s, color .2s;
+}
+.theme-btn:hover{ border-color:var(--accent-line); color:var(--accent); }
+.theme-btn svg{
+  width:14px; height:14px; fill:none; stroke:currentColor;
+  stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round;
+}
+.icon-moon{ display:none; }
+[data-theme="dark"] .icon-sun{ display:none; }
+[data-theme="dark"] .icon-moon{ display:block; }
+
+/* ============================================================
+   4. INTRO
+   ============================================================ */
+.intro{ padding:76px 0 var(--gap); }
+.intro-grid{
+  display:grid;
+  grid-template-columns:250px 1fr;
+  gap:60px;
+  align-items:start;
+}
+
+.photo{ margin:0; }
+.photo-frame{
+  position:relative;
+  background:var(--card);
+  border:1px solid var(--line);
+  padding:13px 13px 44px;
+  border-radius:4px;
+  transform:rotate(-1.2deg);
+  transition:transform .35s;
+}
+.photo-frame:hover{ transform:rotate(0deg); }
+.photo-inner{
+  position:relative; aspect-ratio:1/1; overflow:hidden;
+  background:var(--photo-bg); display:grid; place-items:center;
+}
+.photo-inner img{ width:100%; height:100%; object-fit:cover; display:block; }
+.photo-empty{ display:none; font-family:var(--mono); font-size:11.5px; color:var(--muted); }
+.photo-inner.is-empty img{ display:none; }
+.photo-inner.is-empty .photo-empty{ display:block; }
+.photo-frame figcaption{
+  position:absolute; left:0; right:0; bottom:15px; text-align:center;
+  font-family:var(--mono); font-size:11px; letter-spacing:0.04em; color:var(--muted);
+}
+
+.role{ margin:12px 0 20px; }
+.tag{
+  display:inline-block; margin-left:6px;
+  font-size:13px; color:var(--accent);
+  background:var(--accent-soft); border:1px solid var(--accent-line);
+  padding:4px 12px; border-radius:999px;
+}
+.intro-text{ margin-bottom:32px; }
+
+.facts{ margin:0 0 32px; }
+.facts > div{
+  display:grid; grid-template-columns:104px 1fr; gap:18px;
+  padding:9px 0; font-size:16px;
+  border-top:1px solid var(--line-soft);
+}
+.facts > div:last-child{ border-bottom:1px solid var(--line-soft); }
+.facts dt{
+  font-family:var(--mono); font-size:11.5px; letter-spacing:0.05em;
+  text-transform:uppercase; color:var(--muted); padding-top:5px;
+}
+.facts dd{ margin:0; }
+
+/* Link row. Underlines are drawn with text-decoration so they hold
+   in both themes and on the button as well as the anchors. */
+.links{ display:flex; flex-wrap:wrap; gap:10px 26px; align-items:baseline; margin:0; }
+.links a,
+.links .linklike,
+.linklike{
+  font-family:var(--sans); font-size:16px; color:var(--accent);
+  border:0; padding:0; background:none; cursor:pointer;
+  text-decoration:underline;
+  text-decoration-color:var(--accent-line);
+  text-decoration-thickness:1px;
+  text-underline-offset:4px;
+  transition:color .2s, text-decoration-color .2s;
+}
+.links a:hover,
+.links .linklike:hover,
+.linklike:hover{ color:var(--ink); text-decoration-color:var(--ink); }
+
+/* ============================================================
+   5. STATEMENT
+   ============================================================ */
+.statement{ padding-bottom:var(--gap); }
+.statement-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,420px);
+  gap:44px;
+  align-items:center;
+}
+.statement p{
+  max-width:24ch;
+  font-family:var(--serif); font-weight:400;
+  font-size:clamp(34px,4.8vw,58px);
+  line-height:1.1; letter-spacing:-0.005em;
+  color:var(--ink);
+  margin:0;
+}
+.statement em{ font-style:italic; color:var(--accent); }
+
+/* the network animation. Sizing is set here, the drawing is in script.js */
+#network{
+  display:block; width:100%; height:300px;
+}
+
+/* ============================================================
+   6. SECTIONS
+   ============================================================ */
+.section{ padding-bottom:var(--gap); }
+
+.reveal{ opacity:0; transform:translateY(10px); }
+.reveal.shown{
+  opacity:1; transform:none;
+  transition:opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1);
+}
+
+/* Landing animation for the intro block only: it is above the fold, so it
+   settles in on first paint rather than waiting on the scroll observer. */
+@keyframes fade-up{
+  from{ opacity:0; transform:translateY(14px); }
+  to{ opacity:1; transform:none; }
+}
+.intro .photo,
+.intro-body > *{
+  animation:fade-up .7s cubic-bezier(.22,1,.36,1) both;
+}
+.intro-body h1{         animation-delay:.08s; }
+.intro-body .role{      animation-delay:.16s; }
+.intro-body .intro-text{ animation-delay:.24s; }
+.intro-body .facts{     animation-delay:.32s; }
+.intro-body .links{     animation-delay:.4s; }
+
+/* ============================================================
+   7. PROJECTS
+   ============================================================ */
+/* Two per row on desktop, one on narrow screens. Cards are separate
+   so an odd number of projects leaves whitespace, not an empty panel.
+   Grid stretch makes every card in a row the same height. */
+.projects{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(380px,1fr));
+  gap:16px;
+}
+.project{
+  display:flex; flex-direction:column;
+  color:var(--text);
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:28px 28px 26px;
+  transition:background .2s, border-color .2s;
+}
+.project:hover{ background:var(--bg-soft); border-color:var(--accent-line); }
+.project .year{
+  font-family:var(--mono); font-size:11.5px; letter-spacing:0.05em;
+  color:var(--muted); margin:0 0 10px;
+}
+.project h3{ margin-bottom:11px; font-size:18px; }
+.project p{ font-size:15.5px; line-height:1.65; }
+/* pins the stack line to the bottom so cards line up */
+.stack{
+  font-family:var(--mono); font-size:11.5px; line-height:1.65; color:var(--muted);
+  margin-top:auto; padding-top:18px; margin-bottom:0;
+}
+
+/* ============================================================
+   8. LISTS: experience, education, awards, papers
+   ============================================================ */
+.entries{ list-style:none; margin:0; padding:0; }
+.entries > li{
+  display:grid; grid-template-columns:118px 1fr; gap:26px;
+  padding:24px 0; border-top:1px solid var(--line);
+}
+.entries > li:last-child{ border-bottom:1px solid var(--line); }
+.entries.compact > li{ padding:16px 0; }
+
+.when{
+  font-family:var(--mono); font-size:11.5px; letter-spacing:0.04em;
+  color:var(--muted); padding-top:6px;
+}
+.what h3{ margin-bottom:3px; }
+.what .org{ font-size:15px; color:var(--accent); margin-bottom:9px; }
+.what p{ font-size:15.5px; }
+
+.papers{ list-style:none; margin:0; padding:0; }
+.papers li{ padding:18px 0; border-top:1px solid var(--line); }
+.papers li:last-child{ border-bottom:1px solid var(--line); }
+.papers a{ display:block; color:var(--ink); font-weight:600; font-size:17px; }
+.papers a:hover{ color:var(--accent); }
+.papers .meta{ display:block; font-size:14.5px; color:var(--muted); margin-top:4px; }
+
+/* ============================================================
+   9. SKILLS
+   ============================================================ */
+.skill-row{
+  display:grid; grid-template-columns:170px 1fr; gap:26px;
+  padding:18px 0; border-top:1px solid var(--line);
+}
+.skill-row:last-child{ border-bottom:1px solid var(--line); }
+.skill-row h3{
+  font-family:var(--mono); font-size:11.5px; font-weight:400; letter-spacing:0.05em;
+  text-transform:uppercase; color:var(--muted); padding-top:5px;
+}
+.skill-row p{ font-size:16px; margin:0; }
+
+/* ============================================================
+   10. CLOSING
+   ============================================================ */
+.closing{
+  position:relative;
+  overflow:hidden;
+  background:var(--accent-soft);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  padding:74px 0;
+  margin-bottom:0;
+}
+/* Geisel Library, heavily desaturated and dimmed, fixed behind this panel
+   only. Opacity is tuned separately per theme so body text over it keeps
+   4.5:1 contrast even over the brightest point in the photo. */
+.closing::before{
+  content:"";
+  position:absolute; inset:0;
+  background:url("geisel-bg.jpg") center 35% / cover no-repeat fixed;
+  opacity:.08;
+  pointer-events:none;
+}
+[data-theme="dark"] .closing::before{ opacity:.18; }
+
+.closing-grid{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:end;
+  gap:32px;
+}
+.closing .big{
+  font-size:clamp(28px,3.6vw,42px); line-height:1.15;
+  max-width:19ch; margin-bottom:18px;
+}
+.closing .lead{ margin-bottom:26px; }
+
+/* Cutout stands at the edge of the panel, anchored to one side. */
+.closing-cutout{
+  display:block;
+  height:300px; width:auto;
+  justify-self:end;
+  filter:drop-shadow(0 18px 26px rgba(34,27,44,.16));
+}
+[data-theme="dark"] .closing-cutout{
+  filter:drop-shadow(0 18px 26px rgba(0,0,0,.45));
+}
+
+/* ============================================================
+   11. FOOTER
+   ============================================================ */
+.site-footer{ padding:26px 0 40px; }
+.footer-inner{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; }
+.site-footer p{ font-size:12.5px; color:var(--muted); margin:0; }
+
+/* ============================================================
+   12. SMALL SCREENS
+   ============================================================ */
+@media (max-width:760px){
+  :root{ --gap:76px; }
+
+  .menu-btn{ display:flex; }
+  .header-tools{ margin-left:auto; }
+
+  /* nav drops down under the bar instead of disappearing */
+  .nav{
+    position:absolute; top:100%; left:0; right:0;
+    flex-direction:column; gap:0; margin:0;
+    background:var(--bg);
+    border-bottom:1px solid var(--line);
+    padding:6px 0 10px;
+    display:none;
+  }
+  .nav.open{ display:flex; }
+  .nav a{
+    padding:11px min(6vw,24px); border-radius:0;
+    font-size:15px;
+  }
+  .nav a:hover{ background:var(--accent-soft); }
+  .nav a.current::after{ left:min(6vw,24px); right:auto; width:14px; bottom:6px; }
+
+  .intro{ padding-top:48px; }
+  .intro-grid{ grid-template-columns:1fr; gap:32px; }
+  .photo{ width:210px; }
+  .entries > li,
+  .skill-row,
+  .facts > div{ grid-template-columns:1fr; gap:4px; }
+  .when{ padding-top:0; }
+  .statement-grid{ grid-template-columns:1fr; gap:28px; }
+  .statement p{ max-width:none; }
+  #network{ height:220px; }
+  .closing{ padding:52px 0; }
+}
+
+@media (max-width:700px){
+  .closing-grid{ grid-template-columns:1fr; }
+  .closing-cutout{ display:none; }
+}
+
+/* ============================================================
+   13. REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{
+    transition-duration:.001ms !important;
+    animation-duration:.001ms !important;
+    animation-delay:0s !important;
+  }
+  .reveal,
+  .intro .photo,
+  .intro-body > *{
+    opacity:1 !important; transform:none !important; animation:none !important;
+  }
+}
