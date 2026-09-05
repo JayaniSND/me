@@ -396,20 +396,30 @@ a{ color:var(--accent); text-decoration:none; }
   padding:74px 0;
   margin-bottom:0;
 }
-/* Geisel Library, heavily desaturated and dimmed, fixed behind this panel
-   only. Opacity is tuned separately per theme so body text over it keeps
-   4.5:1 contrast even over the brightest point in the photo. */
+/* Geisel Library at dusk, visible on the right where the cutout stands.
+   ::before is the photo; ::after is a light scrim, solid over the text
+   column and fading out toward the photo so body text keeps its 4.5:1
+   contrast regardless of what is behind it (text always sits on solid
+   --accent-soft, never on the image itself). */
 .closing::before{
   content:"";
-  position:absolute; inset:0;
-  background:url("geisel-bg.jpg") center 35% / cover no-repeat fixed;
-  opacity:.08;
+  position:absolute; inset:0; z-index:0;
+  background:url("media/geisel-bg.jpg") center 55% / cover no-repeat;
   pointer-events:none;
 }
-[data-theme="dark"] .closing::before{ opacity:.18; }
+.closing::after{
+  content:"";
+  position:absolute; inset:0; z-index:0;
+  background:linear-gradient(to right,
+    var(--accent-soft) 0%,
+    var(--accent-soft) 58%,
+    color-mix(in srgb, var(--accent-soft) 55%, transparent) 78%,
+    color-mix(in srgb, var(--accent-soft) 0%, transparent) 100%);
+  pointer-events:none;
+}
 
 .closing-grid{
-  position:relative;
+  position:relative; z-index:1;
   display:grid;
   grid-template-columns:1fr auto;
   align-items:end;
@@ -481,6 +491,9 @@ a{ color:var(--accent); text-decoration:none; }
 @media (max-width:700px){
   .closing-grid{ grid-template-columns:1fr; }
   .closing-cutout{ display:none; }
+  /* No cutout to justify revealing the photo, so keep the panel solid. */
+  .closing::before{ display:none; }
+  .closing::after{ background:var(--accent-soft); }
 }
 
 /* ============================================================
